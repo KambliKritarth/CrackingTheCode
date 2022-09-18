@@ -36,17 +36,16 @@ class Heaps {
   void deleteNode(ArrayList<Integer> hT, int num) {
     int size = hT.size();
     int i;
-    for (i = 0; i < size; i++) {
-      if (num == hT.get(i))
+    for ( i = 0; i < size - 1; i++) {
+      if (hT.get(i) == num)
         break;
     }
-
     int temp = hT.get(i);
     hT.set(i, hT.get(size - 1));
     hT.set(size - 1, temp);
-
     hT.remove(size - 1);
-    for (int j = size / 2 - 1; j >= 0; j--) {
+    for (int j = size / 2 - 1;j>=0;j--)
+    {
       heapify(hT, j);
     }
   }
