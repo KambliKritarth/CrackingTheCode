@@ -28,6 +28,7 @@ class Sort {
       arr[j + 1] = key;
     }
   }
+
   static void selectionSort(int arr[]) {
     int size = arr.length;
     for (int step = 0; step < size - 1; step++) {
@@ -42,13 +43,44 @@ class Sort {
       arr[step] = temp;
     }
   }
+
+  static int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+      if (arr[j] <= pivot) {
+        i++;
+        int temp = arr[i];
+        
+      }
+    }
+  }
+
+  static void quickSort(int arr[],int low ,int high) {
+    
+  }
   public static void main(String args[]) {
       
     int[] data = { -2, 45, 0, 11, -9 };
     // call method using class name
-    Sort.bubbleSort(data);
-    Sort.insertionSort(data);
-    Sort.selectionSort(data);
+    Scanner sc = new Scanner(System.in);
+    String str = "";
+    str = sc.next();
+    switch (str) {
+      case "Bubble":
+        Sort.bubbleSort(data);
+        break;
+      case "Insertion":
+        Sort.insertionSort(data);
+        break;
+      case "Selection":
+        Sort.selectionSort(data);
+        break;
+      case "Quick":
+        int size = data.length;
+        Sort.quickSort(data,0,size -1);
+        break;
+    }
     System.out.println("Sorted Array in Ascending Order:");
     System.out.println(Arrays.toString(data));
   }
