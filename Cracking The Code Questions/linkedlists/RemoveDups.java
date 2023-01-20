@@ -69,32 +69,53 @@ class RemoveDups {
     temp.next = temp.next.next;
   }
 
-  void removeDups(Node rd) {
-    HashSet<Integer> hs = new HashSet<Integer>();
-    Node prev = null;
-    while (rd != null) {
-      if (hs.contains(rd.data)) {
-        prev.next = rd.next;
-      } else {
-        hs.add(rd.data);
-        prev = rd;
+  void removeDupsBuff(Node n) {
+    // Time Complexity: O(N) 
+    HashSet<Integer> set = new HashSet<Integer>();
+    Node previous = null;
+    while (n != null) {
+      if (set.contains(n.data)) {
+        previous.next = n.next; 
       }
-      rd = rd.next;
+      else {
+        set.add(n.data);
+        previous = n;
+      }
+      n = n.next;
     }
   }
-  // Time Complexity: O(N)
+  
+  void removeDups(Node n) {
+    // Time Complexity: O(1)
+    Node current = head;
+    while (current != null) {
+      Node runner = current;
+      while (runner.next != null) {
+        if (current.data == runner.next.data) {
+          runner.next = runner.next.next;
+        }
+        else {
+          runner = runner.next;
+        }
+      }
+      current = current.next;
+    }
+  }
+  
   public static void main(String[] args) {
     RemoveDups ll = new RemoveDups();
-    ll.head = new Node(6);
+    ll.head = new Node(2);
     ll.insertAtBeginning(6);
     ll.insertAtBeginning(9);
     ll.insertAfter(ll.head, 9);
     ll.insertAtEnd(6);
+    ll.insertAtEnd(2);
     ll.printList();
     System.out.println();
-    ll.deleteAt(2);
+    ll.deleteAt(4);
     ll.printList();
-    ll.removeDups(ll.head.next);
+    System.out.println();
+    ll.removeDups(ll.head);
     ll.printList();
   }
 }

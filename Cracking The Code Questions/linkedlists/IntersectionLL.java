@@ -1,5 +1,6 @@
-public class LinkedListDelete {
+public class IntersectionLL {
   Node head;
+  Node alt;
 
   public static class Node {
     int value;
@@ -10,7 +11,15 @@ public class LinkedListDelete {
       next = null;
     }
   }
+
   void printList() {
+    Node tnode = head;
+    while (tnode != null) {
+      System.out.print(tnode.value + "->");
+      tnode = tnode.next;
+    }
+  }
+  void printList(Node head) {
     Node tnode = head;
     while (tnode != null) {
       System.out.print(tnode.value + "->");
@@ -68,16 +77,62 @@ public class LinkedListDelete {
     }
     temp.next = temp.next.next;
   }
+
+  Node findIntersection(Node l1,Node l2) {
+    if (l1 == null || l2 == null)
+      return null;
+    Result result1 = getTailAndSize(l1);
+    Result result2 = getTailAndSize(l2);
+    Node shorter = result1.size < result2.size ? l1 : l2;
+    Node longer = result1.size > result2.size ? l1 : l2;
+    longer = getKthNode(l1, Math.abs(result1.size - result2.size));
+    while (longer != shorter) {
+      longer = longer.next;
+      shorter = shorter.next;
+    }
+    return longer;
+  }
+  class Result {
+    public Node tail;
+    public int size;
+
+    Result(Node tail, int size) {
+      this.tail = tail;
+      this.size = size;
+    }
+  }
+
+  Result getTailAndSize(Node head) {
+    if (head == null)
+      return null;
+    int k = 0;
+    while (head != null) {
+      k++;
+      head = head.next;
+    }
+    return new Result(head,k);
+  }
+  Node getKthNode(Node head, int k) {
+    Node current = head;
+    while (current != null && k > 0) {
+      current = current.next;
+      k--;
+    }
+    return current;
+  }
   public static void main(String[] args) {
-    LinkedListDelete ll = new LinkedListDelete();
+    IntersectionLL ll = new IntersectionLL();
     ll.head = new Node(2);
-    ll.insertAtBeginning(6);
-    ll.insertAtBeginning(9);
-    ll.insertAfter(ll.head, 0);
+    ll.alt = new Node(3);
+    ll.insertAfter(ll.alt, 4);
     ll.insertAtEnd(7);
+    ll.alt.next = ll.head.next;
+    ll.insertAtEnd(8);
+    ll.insertAtEnd(0);
+    ll.insertAtEnd(11);
+    System.out.println(ll.findIntersection(ll.head, ll.alt).value);;
     ll.printList();
     System.out.println();
-    ll.deleteAt(2);
-    ll.printList();
+    ll.printList(ll.alt);
   }
 }
