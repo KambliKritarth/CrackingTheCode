@@ -1,4 +1,4 @@
-import java.util.*;
+/* import java.util.*;
 class Fuel{
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
@@ -9,4 +9,4 @@ class Fuel{
 
     sc.close();
   }
-}
+} */
