@@ -1,7 +1,7 @@
 import java.util.*;
 //import java.lang.*;
 
-public class Min<T> extends Stack<NodeWithMin> {
+public class Min extends Stack<NodeWithMin> {
   public void push(int val) {
     int min = Math.min(val, min());
     super.push(new NodeWithMin(val, min));
@@ -10,15 +10,14 @@ public class Min<T> extends Stack<NodeWithMin> {
   public int min() {
     if (this.isEmpty()) {
       return Integer.MAX_VALUE;
-    }
-    else {
+    } else {
       return peek().min;
     }
   }
-  
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    Min<Integer> ms = new Min<Integer>();
+    Min ms = new Min();
     int n = 4;
     while (n > 0) {
       int ele = sc.nextInt();
